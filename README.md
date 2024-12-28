@@ -1,5 +1,11 @@
 # Build a REST API like a senior developer
 
+## Need help?
+The best place to get help is on Discord or X.
+
+Discord: https://discord.gg/4ae2Esm6P7
+X: https://x.com/tomdoes_tech
+
 ## What you will learn
 * Basic Principals of REST APIs
 * How to structure your applications
