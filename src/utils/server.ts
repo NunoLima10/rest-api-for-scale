@@ -113,7 +113,6 @@ export async function buildServer({ db }: { db: DB }) {
           description: "Development server",
         },
       ],
-      tags: [{ name: "users", description: "User related end-points" }],
       components: {
         securitySchemes: {
           cookieAuth: {
