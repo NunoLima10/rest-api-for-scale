@@ -23,11 +23,8 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
-          run_install: false
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          version: 9
+          run_install: true
         
       - name: Run lint
         run: pnpm lint
@@ -48,11 +45,8 @@ jobs:
         - name: Install pnpm
           uses: pnpm/action-setup@v2
           with:
-            version: 8
-            run_install: false
-  
-        - name: Install dependencies
-          run: pnpm install --frozen-lockfile
+            version: 9
+            run_install: true
 
         - name: Run tests
           run: pnpm test b vgn
