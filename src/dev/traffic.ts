@@ -3,7 +3,7 @@ import axios from "axios";
 import { config } from "../config";
 
 const BASE_URL = `http://${config.HOST}:${config.PORT}/v1`;
-const ITERATIONS = 100;
+const ITERATIONS = 20_000;
 const DELAY_MS = 100;
 
 interface Session {

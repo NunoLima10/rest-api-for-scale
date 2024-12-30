@@ -29,7 +29,7 @@ export async function createJobHandler(
   request: FastifyRequest<{ Body: z.infer<typeof crateJobSchema.body> }>,
   reply: FastifyReply
 ) {
-  const { title, description, status } = request.body;
+  const { title, description, status, keywords, salary } = request.body;
 
   try {
     const result = await createJob(
@@ -37,6 +37,8 @@ export async function createJobHandler(
         title,
         description,
         status,
+        keywords,
+        salary,
         userId: request.user!.id,
       },
       request.db
@@ -71,8 +73,6 @@ export async function getJobsHandler(
     const { search, limit, cursor } = request.query;
 
     const result = await getJobs({ search, limit, cursor }, request.db);
-
-    console.log("res", JSON.stringify(result, null, 2));
 
     return reply.status(200).send(result);
   } catch (error) {
