@@ -26,7 +26,10 @@ export const getJobsSchema = {
   tags: ["jobs"],
   querystring: z.object({
     search: z.string().optional(),
-    limit: z.number().optional(),
+    limit: z
+      .string()
+      .optional()
+      .transform((val) => parseInt(val, 10)),
     cursor: z.string().optional(),
   }),
   response: {

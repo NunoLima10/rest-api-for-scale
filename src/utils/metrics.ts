@@ -5,7 +5,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 const requestResponseTimeHistogram = new client.Histogram({
   name: `${config.METRICS_PREFIX}http_request_duration_seconds`,
   help: "REST API request duration in seconds",
-  labelNames: ["method", "route", "status_code"] as const,
+  labelNames: ["method", "route", "status_code", "success"] as const,
 });
 
 const httpRequestCounter = new client.Counter({

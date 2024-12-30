@@ -193,7 +193,7 @@
             "type": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "rate(app_database_query_duration_seconds_count{success=\"true\"}[5m])",
+          "expr": "sum(rate(app_database_query_duration_seconds_count{success=\"true\"}[5m])) by (success)",
           "legendFormat": "Success",
           "range": true,
           "refId": "A"
@@ -203,7 +203,7 @@
             "type": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "rate(app_database_query_duration_seconds_count{success=\"false\"}[5m])",
+          "expr": "sum(rate(app_database_query_duration_seconds_count{success=\"false\"}[5m])) by (success)",
           "legendFormat": "Errors",
           "range": true,
           "refId": "B"
@@ -379,7 +379,7 @@
             "type": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "rate(app_http_requests_total{success=\"true\"}[5m])",
+          "expr": "sum(rate(app_http_requests_total{success=\"true\"}[5m])) by (success)",
           "legendFormat": "Success",
           "range": true,
           "refId": "A"
@@ -389,7 +389,7 @@
             "type": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "rate(app_http_requests_total{success=\"false\"}[5m])",
+          "expr": "sum(rate(app_http_requests_total{success=\"false\"}[5m])) by (success)",
           "legendFormat": "Errors",
           "range": true,
           "refId": "B"

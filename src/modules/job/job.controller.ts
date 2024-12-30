@@ -67,11 +67,26 @@ export async function getJobsHandler(
   }>,
   reply: FastifyReply
 ) {
-  const { search, limit, cursor } = request.query;
+  try {
+    const { search, limit, cursor } = request.query;
 
-  const result = await getJobs({ search, limit, cursor }, request.db);
+    const result = await getJobs({ search, limit, cursor }, request.db);
 
-  return reply.status(200).send(result);
+    console.log("res", JSON.stringify(result, null, 2));
+
+    return reply.status(200).send(result);
+  } catch (error) {
+    const e = error as PostgresErrorType;
+
+    logger.error({ error }, "getJobs: failed to get jobs");
+
+    return httpError({
+      reply,
+      message: "Failed to get jobs",
+      code: StatusCodes.INTERNAL_SERVER_ERROR,
+      cause: e.message,
+    });
+  }
 }
 
 export async function getJobHandler(

@@ -57,6 +57,7 @@ export async function getJobs(
   db: DB
 ) {
   const end = databaseQueryTimeHistogram.startTimer();
+
   try {
     const searchQuery = search?.trim()
       ? decodeURIComponent(search.trim())
@@ -107,9 +108,11 @@ export async function getJobs(
       query = query.where(matchQuery);
     }
 
-    if (limit) {
-      query = query.limit(Math.min(limit, 20));
+    if (typeof limit !== "number") {
+      limit = parseInt(limit, 10);
     }
+
+    query = query.limit(Math.min(limit, 20));
 
     const items = await db.execute(query);
 
@@ -121,7 +124,12 @@ export async function getJobs(
     });
 
     return {
-      items,
+      items: items.map((item) => ({
+        ...item,
+        userId: item.user_id,
+        createdAt: new Date(item.created_at),
+        updatedAt: new Date(item.updated_at),
+      })),
       nextCursor: nextPage,
     };
   } catch (error) {
