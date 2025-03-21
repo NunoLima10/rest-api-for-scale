@@ -1,17 +1,15 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import {
-  createJob,
-  getJobById,
-  getJobBySlug,
-  getJobs,
-  updateJob,
-} from "./job.service";
-import { httpError } from "../../utils/http";
 import { StatusCodes } from "http-status-codes";
 import { PostgresError } from "pg-error-enum";
 import { PostgresError as PostgresErrorType } from "postgres";
 import { z } from "zod";
+import { httpError } from "../../utils/http";
+import { logger } from "../../utils/logger";
+import {
+  getJobApplication,
+  getJobApplications,
+} from "../application/application.service";
 import {
   crateJobSchema,
   getJobApplicationSchema,
@@ -21,9 +19,12 @@ import {
   updateJobSchema,
 } from "./job.schema";
 import {
-  getJobApplication,
-  getJobApplications,
-} from "../application/application.service";
+  createJob,
+  getJobById,
+  getJobBySlug,
+  getJobs,
+  updateJob,
+} from "./job.service";
 
 export async function createJobHandler(
   request: FastifyRequest<{ Body: z.infer<typeof crateJobSchema.body> }>,

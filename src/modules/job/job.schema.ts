@@ -1,10 +1,10 @@
-import { z } from "zod";
-import { applications, jobs } from "../../db/schema";
 import {
   createInsertSchema,
   createSelectSchema,
   createUpdateSchema,
 } from "drizzle-zod";
+import { z } from "zod";
+import { applications, jobs } from "../../db/schema";
 import { errorResponses } from "../../utils/http";
 
 export const crateJobSchema = {
@@ -29,7 +29,7 @@ export const getJobsSchema = {
     limit: z
       .string()
       .optional()
-      .transform((val) => parseInt(val, 10)),
+      .transform((val) => (val ? parseInt(val, 10) || 0 : 0)),
     cursor: z.string().optional(),
   }),
   response: {
