@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import {
   and,
   eq,
@@ -6,13 +7,12 @@ import {
   InferInsertModel,
   sql,
 } from "drizzle-orm";
-import slugify from "slugify";
-import crypto from "crypto";
-import { jobs } from "../../db/schema";
-import { DB } from "../../db";
 import { QueryBuilder } from "drizzle-orm/pg-core";
-import { databaseQueryTimeHistogram } from "../../utils/metrics";
+import slugify from "slugify";
+import { DB } from "../../db";
+import { jobs } from "../../db/schema";
 import { logger } from "../../utils/logger";
+import { databaseQueryTimeHistogram } from "../../utils/metrics";
 
 export async function createJob(
   input: Omit<InferInsertModel<typeof jobs>, "slug">,
@@ -124,7 +124,7 @@ export async function getJobs(
     });
 
     return {
-      items: items.map((item) => ({
+      items: items.map((item: any) => ({
         ...item,
         userId: item.user_id,
         createdAt: new Date(item.created_at),
